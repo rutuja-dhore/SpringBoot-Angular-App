@@ -39,4 +39,12 @@ public class UserServiceImpl implements UserService {
 		UserEntity user = userDAO.findById(userId);
 		return beanMapper.map(user, UserDTO.class);
 	}
+
+	@Override
+	public void delete(Integer userId) {
+		UserEntity user = userDAO.findById(userId);
+		if (null != user) {
+			userDAO.delete(userId);
+		}
+	}
 }
