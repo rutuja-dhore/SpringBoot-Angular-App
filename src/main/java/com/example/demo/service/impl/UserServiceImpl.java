@@ -33,4 +33,10 @@ public class UserServiceImpl implements UserService {
 		List<UserEntity> users = userDAO.findAll();
 		return beanMapper.map(users, UserDTO.class);
 	}
+
+	@Override
+	public UserDTO findById(Integer userId) {
+		UserEntity user = userDAO.findById(userId);
+		return beanMapper.map(user, UserDTO.class);
+	}
 }

@@ -10,4 +10,6 @@ public interface UserService {
 	UserDTO save(UserInDTO userInDTO);
 
 	List<UserDTO> findAll();
+
+	UserDTO findById(Integer userId);
 }
