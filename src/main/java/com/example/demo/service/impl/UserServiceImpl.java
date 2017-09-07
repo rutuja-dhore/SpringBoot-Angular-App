@@ -47,4 +47,18 @@ public class UserServiceImpl implements UserService {
 			userDAO.delete(userId);
 		}
 	}
+
+	@Override
+	public UserDTO update(Integer userId, UserInDTO userInDTO) {
+		UserEntity user = userDAO.findById(userId);
+		if (null != user) {
+			user.setFirstName(userInDTO.getFirstName());
+			user.setLastName(userInDTO.getLastName());
+			user.setAge(userInDTO.getAge());
+			user = userDAO.save(user);
+			return beanMapper.map(user, UserDTO.class);
+		}
+		return null;
+	}
+
 }
