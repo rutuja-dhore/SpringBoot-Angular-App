@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.common.BeanMapper;
+import com.example.demo.exception.ErrorMessages;
+import com.example.demo.exception.UserNullException;
 import com.example.demo.persistence.UserDAO;
 import com.example.demo.persistence.UserEntity;
 import com.example.demo.service.UserService;
@@ -49,7 +51,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDTO update(Integer userId, UserInDTO userInDTO) {
+	public UserDTO update(Integer userId, UserInDTO userInDTO) throws UserNullException{
 		UserEntity user = userDAO.findById(userId);
 		if (null != user) {
 			user.setFirstName(userInDTO.getFirstName());
@@ -58,7 +60,7 @@ public class UserServiceImpl implements UserService {
 			user = userDAO.save(user);
 			return beanMapper.map(user, UserDTO.class);
 		}
-		return null;
+		throw new UserNullException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 	}
 
 }
